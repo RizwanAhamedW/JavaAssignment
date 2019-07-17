@@ -1,0 +1,115 @@
+1.) create new Ticket system
+
+import java.util.Scanner;
+
+public class TicketDetails {
+
+	
+	String ticketDesc,ticketType,Status,ticketResolution;
+	int ticketNumber;
+	
+	TicketDetails(String ticketDesc,String ticketType,int ticketNumber)
+	{
+		this.ticketDesc=ticketDesc;
+		this.ticketType=ticketType;
+		this.Status="New";
+		this.ticketNumber= ticketNumber;
+	}
+	
+	public static void main(String[] args)
+	{
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Please enter 1 for Create new Ticket or 2 for exit ");
+		int i1=sc.nextInt();
+		
+      switch(i1)
+      {
+      case 1:
+    	  System.out.println("Please enter ticket description");
+    	  sc.nextLine();
+    	  String s1=sc.nextLine();
+    	  System.out.println("Please enter ticket Type");
+    	  //sc.nextLine();
+    	  String s2=sc.nextLine();
+    	  int n1=(int)(Math.random() * 3) + 100;
+    	  TicketDetails t1=new TicketDetails(s1,s2,n1);
+    	  System.out.println("Ticket Number: "+t1.ticketNumber+ ", Ticket Status: "+t1.Status+ ", Ticket Description: "+t1.ticketDesc+", Ticket Type: "+t1.ticketType);
+    	  
+    	  System.out.println("Please enter 3 for approve and 4 for cancel/Reject");
+    	  int i2=sc.nextInt();
+    	  if(i2==3)
+    	  {
+    		  t1.Status="Approved";
+                  System.out.println("Ticket Number: "+t1.ticketNumber+ ", Ticket Status: "+t1.Status+ ", Ticket Description: "+t1.ticketDesc);
+    		  System.out.println("Please Enter ticket resolution details ");
+    		  sc.nextLine();
+    		  String s3=sc.nextLine();
+    		  t1.ticketResolution=s3;
+    		  System.out.println("Ticket Number: "+t1.ticketNumber+ ", Ticket Status: "+t1.Status+ ", Ticket Description: "+t1.ticketDesc+", Ticket Resolution: "+t1.ticketResolution);
+    		  System.out.println("please enter 5 to close the ticket ");
+    		  int i3=sc.nextInt();
+    		  if(i3==5)
+    		  {
+    			  t1.Status="Close";
+    			  System.out.println("Ticket Number: "+t1.ticketNumber+ ", Ticket Status: "+t1.Status+ ", Ticket Description: "+t1.ticketDesc+", Ticket Resolution: "+t1.ticketResolution);  
+    		  }
+    		  else
+    		  {
+    			  System.out.println("Worng input, cannot close the Ticket");
+    		  }
+    		  
+    		  
+    		  
+    	  }
+    	  else if(i2==4)
+    	  {
+    		  t1.Status="Cancel";
+    		  System.out.println("Ticket Number: "+t1.ticketNumber+ ", Ticket Status: "+t1.Status+ ", Ticket Description: "+t1.ticketDesc);
+    	  }
+    	  else
+    	  {
+    		  System.out.println("Wrong input and exiting the System");
+    	  }
+    	  
+      case 2:
+    	  System.out.println("Exiting the System");
+    	  break;
+		}
+		
+	}
+	
+}
+
+------------------------------------------------------------------------------------------
+
+2.) Pattern Print:
+
+public class Pyramid {
+
+	
+	public static void main(String[] args)
+	{
+	
+	int k=1;
+	int j=1;
+	int n=100;
+	for (int i=1;i<=n;i++)
+	{
+	 System.out.print(i+" ");
+	if(j==k)
+	{
+	System.out.println();
+	k++;
+	j=1;
+	if ((n-i)<k)
+	{
+		break;
+	}
+	}
+	else
+	{
+	j++;
+	}
+	}
+	
+}}

@@ -1,0 +1,268 @@
+import java.util.Scanner;
+
+public class Calci {
+
+	Scanner sc = new Scanner(System.in);
+
+
+		public void add(int n1, int n2){
+			int sum = n1+n2;
+			System.out.println("Addition Value is "+ sum);
+		}
+		public void add(int n1, float n2){
+			float sum= n1+n2;
+			System.out.println("Addition Value is "+ sum);
+		}
+		public void add(float n1, int n2){
+		
+			float sum = n1+n2;
+			System.out.println("Addition Value is "+sum);
+		}
+		
+		public void add(int n1, int n2, int n3){
+			int sum= n1+n2+n3;
+			System.out.println("Addition Value is "+sum);
+		}
+		
+		public void add(int n1, int n2, float n3){
+			float sum=n1+n2+n3;
+			System.out.println("Addition Value is "+sum);
+		}
+		
+		public void add(int n1, float n2, int n3){
+			float sum=n1+n2+n3;
+			System.out.println("Addition Value is "+sum);
+		}
+		public void add(float n1, int n2, int n3){
+			float sum=n1+n2+n3;
+			System.out.println("Addition Value is "+sum);
+		}
+		public void add(int n1, float n2, float n3){
+			float sum=n1+n2+n3;
+			System.out.println("Addition Value is "+sum);
+		}
+			
+		//For Multiplication
+		
+		public void multiply(int n1, int n2){
+			int mulVal = n1*n2;
+			System.out.println("Multiplication value is "+ mulVal);
+		}
+		public void multiply(int n1, float n2){
+			float mulVal= n1*n2;
+			System.out.println("Multiplication value is "+ mulVal);
+		}
+		public void multiply(float n1, int n2){
+			float mulVal = n1*n2;
+			System.out.println("Multiplication value is "+mulVal);
+		}
+		public void multiply(float n1, float n2){
+			float mulVal=n1*n2;
+			System.out.println("Multiplication value is "+mulVal);
+		}
+		public void multiply(int n1, int n2, int n3){
+			int mulVal= n1*n2*n3;
+			System.out.println("Multiplication value is "+mulVal);
+		}
+		public void multiply(int n1, int n2, float n3){
+			float mulVal=n1*n2*n3;
+			System.out.println("Multiplication value is "+mulVal);
+		}
+		public void multiply(int n1, float n2, int n3){
+			float mulVal=n1*n2*n3;
+			System.out.println("Multiplication value is "+mulVal);
+		}
+		public void multiply(float n1, int n2, int n3){
+			float mulVal=n1*n2*n3;
+			System.out.println("Multiplication value is "+mulVal);
+		}
+		public void multiply(int n1, float n2, float n3){
+			float mulVal=n1*n2*n3;
+			System.out.println("Multiplication value is "+mulVal);
+		}
+				
+		// For Subtraction
+		
+		public void subtract(int n1, int n2){
+			int subVal = n1-n2;
+			System.out.println("Subtraction Value is "+ subVal);
+		}
+		public void subtract(int n1, float n2){
+			float subVal= n1-n2;
+			System.out.println("Subtraction Value is "+ subVal);
+		}
+		public void subtract(float n1, int n2){
+			float subVal = n1-n2;
+			System.out.println("Subtraction Value is "+subVal);
+		}
+		public void subtract(float n1, float n2){
+			float subVal=n1-n2;
+			System.out.println("Subtraction Value is "+subVal);
+		}
+		public void subtract(int n1, int n2, int n3){
+			int subVal= n1-n2-n3;
+			System.out.println("Subtraction Value is"+subVal);
+		}
+		public void subtract(int n1, int n2, float n3){
+			float subVal=n1-n2-n3;
+			System.out.println("Subtraction Value is"+subVal);
+		}
+		public void subtract(int n1, float n2, int n3){
+			float subVal=n1-n2-n3;
+			System.out.println("Subtraction Value is"+subVal);
+		}
+		public void subtract(float n1, int n2, int n3){
+			float subVal=n1-n2-n3;
+			System.out.println("Subtraction Value is"+subVal);
+		}
+		public void subtract(int n1, float n2, float n3){
+			float subVal=n1-n2-n3;
+			System.out.println("Subtraction Value is"+subVal);
+		}
+		public void subtract(float n1, float n2, int n3){
+			float subVal=n1-n2-n3;
+			System.out.println("Subtraction Value is"+subVal);
+		}
+		
+		//For Multiplication
+		
+				public void divide(int n1, int n2){
+					int devVal = n1/n2;
+					System.out.println("Division Value is  "+ devVal);
+				}
+				public void divide(int n1, int n2, int n3){
+					int devVal1 = ((n1/n2)/n3);
+					System.out.println("Division Value is "+ devVal1);
+
+				
+				}
+				
+				
+				
+				public static void main(String[] args) {
+					Calci cal = new Calci();
+					Scanner sc = new Scanner(System.in);
+					System.out.println("Please enter 1 for addition, 2 for Subtraction, 3 for Multiplication and 4 for Division");
+					int input = sc.nextInt();
+					switch(input){
+					case 1: 
+						System.out.println("Enter 1 to add 2 numbers and enter 2 to add 3 numbers");
+						int i1 =sc.nextInt();
+						switch(i1){
+						case 1: 
+							System.out.println("Please enter number1:");
+							int n1= sc.nextInt();
+							System.out.println("Please enter number2:");
+							int n2 = sc.nextInt();
+							cal.add(n1, n2);
+							break;
+						case 2:
+							System.out.println("Please enter number1:");
+							int num1= sc.nextInt();
+							System.out.println("Please enter number2:");
+							int num2 = sc.nextInt();
+							System.out.println("Please enter number3:");
+							int num3 = sc.nextInt();
+							cal.add(num1,num2,num3);
+							break;
+							default: System.out.println("Incorrect entry");
+						}
+						break;
+					case 2:
+						System.out.println("Enter 1 for subtract two numbers and 2 for subtract three numbers");
+						int i2 = sc.nextInt();
+						switch(i2){
+						case 1:
+							System.out.println("Please enter number1:");
+							int snum1=sc.nextInt();
+							System.out.println("Please enter number2:");
+							int snum2 = sc.nextInt();
+							cal.subtract(snum1, snum2);
+							break;
+						case 2:
+							System.out.println("Please enter number1:");
+							int subnum1=sc.nextInt();
+							System.out.println("Please enter number2:");
+							int subnum2 = sc.nextInt();
+							System.out.println("Please enter number3:");
+							int subnum3 = sc.nextInt();
+							cal.subtract(subnum1, subnum2, subnum3);;
+							break;
+							default: System.out.println("Incorrect entry");
+						}
+						break;
+					case 3:
+						System.out.println("Enter 1 for multiply 2 numbers and 2 for multiply three numbers");
+						int i3 = sc.nextInt();
+						switch(i3){
+						case 1:
+							System.out.println("Please enter number 1:");
+							int mnum1=sc.nextInt();
+							System.out.println("Please enter number2:");
+							int mnum2=sc.nextInt();
+							cal.multiply(mnum1, mnum2);
+							break;
+						case 2:
+							System.out.println("Please enter number1:");
+							int mulnum1=sc.nextInt();
+							System.out.println("Please enter number2:");
+							int mulnum2 = sc.nextInt();
+							System.out.println("Please enter number3");
+							int mulnum3=sc.nextInt();
+							cal.multiply(mulnum1, mulnum2, mulnum3);
+							break;
+							default: System.out.println("Incorrect entry");
+						}
+						break;
+					case 4:
+						System.out.println("Enter 1 for divide 2 number and 2 for divide 3 numbers");
+						int i4 = sc.nextInt();
+						switch(i4){
+						case 1:
+							System.out.println("Please enter number1:");
+							int div1=sc.nextInt();
+							if (div1 !=0){
+								System.out.println("Please enter number2:");
+								int div2=sc.nextInt();
+									if (div2 != 0){
+										cal.divide(div1, div2);
+									}
+									else{
+									System.out.println("Zero is Incorrect entry in number2 and pleae enter a valid integer number");
+									int div3 = sc.nextInt();
+									cal.divide(div1, div3);
+								}
+							}
+							else{
+								System.out.println("Zero is Incorrect entry in number1 and pleae enter a valid integer number");
+								int div4 = sc.nextInt();
+								System.out.println("Please enter number2:");
+								int div5=sc.nextInt();
+								if (div5 !=0){
+								cal.divide(div4, div5);
+								}
+							}
+							
+							break;
+						
+						
+						case 2:
+							System.out.println("Please enter number 1:");
+							int divnum1 = sc.nextInt();
+							System.out.println("Please enter number 2:");
+							int divnum2 = sc.nextInt();
+							System.out.println("Please enter number 3:");
+							int divnum3= sc.nextInt();					
+							cal.divide(divnum1, divnum2, divnum3);
+							break;
+							default: System.out.println("Incorrect entry");
+							
+
+							
+						}
+						break;
+						default: System.out.println("Incorrect entry, exiting");
+					}
+
+					}
+}
