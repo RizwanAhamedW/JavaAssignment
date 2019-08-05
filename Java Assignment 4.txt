@@ -1,0 +1,203 @@
+
+
+1.) Frequency of Digit is same or not
+
+  
+Src class File:
+
+package com.ford.javaexercise;
+//import java.util.Scanner;
+ 
+public class DigitFrequency
+{   
+		
+		public String digFreq(int num)
+		{
+           
+        int number = num;  
+        int[] dc=new int[10];
+        int[] freq = new int[10];
+         
+        while (number != 0)
+        {                         
+            int lastDigit = number % 10;  
+            freq[lastDigit]++;    
+            number = number / 10;
+        }
+         
+        int j=0;
+        for (int i = 0; i < freq.length; i++)
+        {
+            if(freq[i] != 0)
+            {            	
+            	dc[j]=freq[i];
+                j++;
+            }
+        } 
+        
+        Boolean flag=true;        
+              
+        for (int i = 0; i < j-1; i++)
+        {        	
+        	  
+        	  if(dc[i] != dc[i+1])
+        	  {
+        		  flag=false;
+        		  break;
+        	  }
+        }
+        if(flag)
+        {
+        	return "YES, Every Digit appears same number of Times";
+        }
+        
+        else
+        {
+        	return "NO, Digit Frequency varies";
+        }
+         
+      }
+}
+
+
+Test Class File :
+
+package com.ford;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+import com.ford.javaexercise.DigitFrequency;
+
+public class DigitFrequecyTest {
+
+	@Test
+	public void test()
+	   {		
+		DigitFrequency d=new DigitFrequency();		
+		assertEquals("YES, Every Digit appears same number of Times", 	d.digFreq(112233));
+	   }
+
+	@Test
+	public void test1()
+	   {		
+		DigitFrequency d=new DigitFrequency();		
+		assertEquals("NO, Digit Frequency varies", 	d.digFreq(1122313));
+	   }
+}
+
+
+-----------------------------------------------------------------------------------------------------------
+
+
+2.) Lucky Array or not
+
+
+Src Class File:
+
+package com.ford.javaexercise;
+public class LuckyArray
+{   
+	
+	public String luckyArray(int numbers[])
+    {
+        
+             // int[] n=new int[10];
+           
+        Boolean flag=true;      
+        for (int i = 0; i < numbers.length-1; i++)
+        {      
+        	if (!flag)
+        	{
+        		break;
+        	}
+            
+        	for (int j = i+1; j < numbers.length; j++)
+        	if(numbers[i] == numbers[j])
+        	  {
+        		  flag=false;
+        		  break;
+        	  }
+        }
+        
+        if(flag)
+        {
+        	return "Array is Lucky";
+        }
+        
+        else
+        {
+        	return "Array is not Lucky";
+        }
+         
+      
+    }
+}
+
+
+Test Class File:
+
+package com.ford;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+import com.ford.javaexercise.LuckyArray;
+
+public class LuckyArrayTest {
+
+	@Test
+	public void test() {
+
+		LuckyArray la = new LuckyArray();
+		int[] numbers = { 10, 11, 12, 13, 1, 2, 54, 77 };
+		assertEquals("Array is Lucky", la.luckyArray(numbers));
+
+	}
+
+	@Test
+	public void test1() {
+		
+		LuckyArray la = new LuckyArray();
+		int[] numbers = { 10, 11, 12, 13, 1, 2, 54, 77, 11 };
+		assertEquals("Array is not Lucky", la.luckyArray(numbers));
+
+	}
+
+}
+
+
+-------------------------------------------------------------------------------------
+
+3.) Snake Pattern print
+
+package com.ford.javaexercise;
+
+public class SnakePattern {
+	
+	public static void main(String[] args) {
+		
+		int[][] numbers={{10,20,30},{60,50,40},{70,80,90}};
+		
+		int len=numbers.length;
+		for(int i=0;i<len;i++){		
+			if((i%2)==0)
+			{			
+			for(int j=0;j<len;j++)
+			{
+				System.out.print(numbers[i][j]+" ");
+			}			
+			}
+			else
+			{				
+				for(int j=len-1;j>=0;j--)
+				{
+					System.out.print(numbers[i][j]+" ");
+				}				
+			}			
+			//System.out.println();
+		}
+	}
+}
