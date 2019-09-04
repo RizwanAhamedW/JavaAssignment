@@ -1,0 +1,204 @@
+package com.ford.javaexercise; 
+
+ 
+public class Customer { 
+	 
+	private String name; 
+    private String address; 
+	private double cashOnHand; 
+	 
+	 public String getName() { 
+		return name; 
+	}  
+     public void setName(String name) { 
+		this.name = name; 
+	} 
+	public String getAddress() { 
+		return address; 
+	} 
+	public void setAddress(String address) { 
+		this.address = address; 
+	} 
+	public double getCashOnHand() { 
+		return cashOnHand; 
+	} 
+	public void setCashOnHand(double cashOnHand) { 
+		this.cashOnHand = cashOnHand; 
+	} 
+	 
+	 
+	public void purchaseVehicle(Employee emp1, Vehicle v1, boolean finance) { 
+		emp1.handleCustomer(this,v1,finance); 
+		 
+	} 
+	
+	public void viewListOfVehicles() { 
+		Dealership d=new Dealership();
+		d.viewVehicles();
+		 
+	} 
+	 
+	 
+
+
+} 
+
+
+--------------------------------------------------------------------------
+
+package com.ford.javaexercise;
+
+public class Dealership { 
+	static Vehicle vehicleList[]=new Vehicle[3];
+ 	public static void main(String[] args) { 
+ 		 
+ 		Employee emp1=new Employee(); 
+ 		emp1.setName("Emp1"); 
+ 		
+ 		//Vehicle vehicleList[]=new Vehicle[3];
+ 		 
+ 		Vehicle v1=new Vehicle(); 
+ 		v1.setMake("Ford"); 
+ 		v1.setModel("2019"); 
+ 		v1.setPrice(1000000); 
+ 		 
+ 		 
+ 		Vehicle v2=new Vehicle(); 
+ 		v2.setMake("Ford"); 
+ 		v2.setModel("2018"); 
+ 		v2.setPrice(500000);
+ 		
+ 		
+ 		Vehicle v3=new Vehicle(); 
+ 		v3.setMake("Ford"); 
+ 		v3.setModel("2017"); 
+ 		v3.setPrice(300000);
+ 		
+ 		vehicleList[0]=v1;
+ 		vehicleList[1]=v2;
+ 		vehicleList[2]=v3;
+ 		
+ 		 
+ 		Customer c1=new Customer(); 
+ 		c1.setName("Tom"); 
+ 		c1.setAddress("Chennai"); 
+ 		c1.setCashOnHand(100000); 
+ 		 
+ 		boolean finance=true; 
+ 		 
+ 		
+ 		c1.viewListOfVehicles();
+ 		c1.purchaseVehicle(emp1,v1,finance);  
+ 		  		 
+ 	} 
+ 	
+ 	public void viewVehicles()
+ 	{
+ 		for (int i = 0; i < vehicleList.length; i++) 
+ 		{
+			System.out.println("Vehicle Number : "+(i+1)+" - Vehicle Make: "+vehicleList[i].getMake()+" - Vehicle Model: "+vehicleList[i].getModel()+" - Vehicle Price: "+vehicleList[i].getPrice());
+		}
+ 		
+ 	}
+ } 
+
+
+
+------------------------------------------------------------------
+
+package com.ford.javaexercise;
+
+public class Employee { 
+	 
+ 	private String name; 
+ 
+
+ 	public String getName() { 
+ 		return name; 
+ 	} 
+ 
+ 
+	public void setName(String name) { 
+ 		this.name = name; 
+ 	} 
+ 
+ 
+	public void handleCustomer(Customer c1,Vehicle v1, boolean finance) { 
+ 		 
+ 		if(finance) { 
+ 			double loanAmount=v1.getPrice() - c1.getCashOnHand(); 
+ 			
+ 			if(loanAmount<0)
+ 			{
+ 				System.out.println("Sorry, you have sufficient cash to buy the car and loan cannot be processed");
+ 			}
+ 			else
+ 			{
+ 			this.processLoan(c1,loanAmount);
+ 			}
+ 		}else { 
+ 			
+ 			if(c1.getCashOnHand()<v1.getPrice())
+ 			{
+ 				System.out.println("Sorry, You do not have sufficient cash to buy the car");
+ 			}
+ 			else
+ 			{ 			 
+ 			  processTransaction(c1,v1);
+ 			}
+ 		} 
+ 		 
+ 	} 
+	 
+ 	private void processTransaction(Customer c1, Vehicle v1) { 
+ 		
+ 		System.out.println(c1.getName()+"  purchased "+v1.getModel());
+ 		c1.setCashOnHand(c1.getCashOnHand()-v1.getPrice());
+ 		System.out.println("The Current Cash on Hand after purchase is: "+c1.getCashOnHand());
+ 		 
+ 	} 
+ 
+
+ 	public void processLoan(Customer c1, double loanAmout) { 
+ 		// 
+ 		System.out.println("Loan request is registered and it is in Progress"); 
+ 	} 
+ 	 
+ 	 
+ 	 
+ 
+ 
+ } 
+
+---------------------------------------------------------------------
+
+package com.ford.javaexercise;
+
+public class Vehicle { 
+	 
+ 	private String make; 
+ 	private String model; 
+ 	private double price; 
+ 	 
+ 	public String getMake() { 
+ 		return make; 
+ 	} 
+ 	public void setMake(String make) { 
+ 		this.make = make; 
+ 	} 
+ 	public String getModel() { 
+		return model; 
+ 	} 
+ 	public void setModel(String model) { 
+ 		this.model = model; 
+ 	} 
+ 	public double getPrice() { 
+ 		return price; 
+ 	} 
+ 	public void setPrice(double price) { 
+ 		this.price = price; 
+ 	} 
+
+ 
+ } 
+
