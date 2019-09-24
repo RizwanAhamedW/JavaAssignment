@@ -1,0 +1,366 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
+
+public class AtmDetails {
+	
+	public static void main(String[] args) throws IOException {		
+		
+		
+		System.out.println("Please enter the Atm Card Number");
+		Scanner sc=new Scanner(System.in);
+		String s=sc.next();
+		
+		AtmTransactions at=new AtmTransactions();
+		boolean a=true;
+	
+		if(at.verifyAtmNumber(s))
+		{
+			while(a)
+			{
+			System.out.println("What operation do you want to perform?");
+			System.out.println("1.) Balance Enquiry \n2.) Withdrawal  \n3.) Deposit \n4.) Exit");
+			int option=sc.nextInt();
+			
+			switch(option)
+			{
+			case 1: at.balanceEnquiry(s);
+			        break;
+			
+			case 2: at.withdrawal(s);
+			        break;
+			        
+			case 3: at.depositCash(s);
+	                break;
+	                
+			case 4: a=false;
+			        break;
+			        
+			default: System.out.println("Enter a valid option");
+			
+			}
+		}
+			
+		}
+	}
+}
+
+
+-------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class AtmTransactions {
+
+	static ArrayList<CardDetails> cd = new ArrayList<CardDetails>();
+
+	public AtmTransactions() {
+		File f = new File("C:\\Users\\rahamedw\\Documents\\LatestMFM\\JavaExercise\\TestData\\atmDetails.txt");
+		FileReader fr;
+		try {
+			fr = new FileReader(f);
+			BufferedReader br = new BufferedReader(fr);
+			String s = br.readLine();
+			while (s != null) {
+				// System.out.println(s);
+
+				String[] s1 = s.split(",");
+				CardDetails c = new CardDetails();
+				c.setCardNumber(Integer.parseInt(s1[0]));
+				c.setName(s1[1]);
+				c.setBankName(s1[2]);
+				c.setBalance(Double.parseDouble(s1[3]));
+				cd.add(c);
+				s = br.readLine();
+
+			}
+			br.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void displayAtmDataAfterUpdate(String atmNo) throws IOException {
+		File f = new File("C:\\Users\\rahamedw\\Documents\\LatestMFM\\JavaExercise\\TestData\\atmDetails.txt");
+		FileReader fr = new FileReader(f);
+		BufferedReader br = new BufferedReader(fr);
+		String s = br.readLine();
+		while (s != null) {
+
+			String[] s1 = s.split(",");
+			if (s1[0].equals(atmNo)) {
+				System.out.println(s + " \n");
+				break;
+			}
+
+			s = br.readLine();
+		}
+		br.close();
+	}
+
+	public void writeAtmDataToFile() throws IOException {
+		File f = new File("C:\\Users\\rahamedw\\Documents\\LatestMFM\\JavaExercise\\TestData\\atmDetails.txt");
+		FileWriter fw = new FileWriter(f);
+		BufferedWriter bw = new BufferedWriter(fw);
+
+		for (CardDetails cardDetails : cd) {
+
+			fw.write(cardDetails.getCardNumber() + "," + cardDetails.getName() + "," + cardDetails.getBankName() + ","
+					+ cardDetails.getBalance() + "\n");
+		}
+		fw.close();
+		bw.close();
+
+	}
+
+	public Boolean verifyAtmNumber(String s1) throws IOException {
+
+		for (CardDetails cardDetails : cd) {
+
+			if (cardDetails.getCardNumber() == Integer.parseInt(s1)) {
+				System.out.println("\nATM card number entered is valid \n");
+				return true;
+			}
+
+		}
+		System.out.println("The ATM Card number entered is notvalid, aborting the operation");
+		return false;
+	}
+
+	public void balanceEnquiry(String atmNo) {
+		for (CardDetails cardDetails : cd) {
+			if (cardDetails.getCardNumber() == Integer.parseInt(atmNo)) {
+				System.out.println(
+						"\nThe Balance for ATM Number: " + atmNo + " is: Rs." + cardDetails.getBalance() + "\n");
+				break;
+			}
+		}
+	}
+
+	public void withdrawal(String atmNo) {
+
+		System.out.println("Enter the amount to withdraw");
+		Scanner sc = new Scanner(System.in);
+		int withdrawalAmount = sc.nextInt();
+		double balance = 0;
+		int sr = 0;
+		for (CardDetails cardDetails : cd) {
+
+			if (cardDetails.getCardNumber() == Integer.parseInt(atmNo)) {
+
+				balance = cardDetails.getBalance();
+
+				switch (cardDetails.getBankName()) {
+				case "HDFC":
+					sr = new HdfcBank().getServiceCharge();
+					break;
+				case "ICICI":
+					sr = new ICICIBank().getServiceCharge();
+					break;
+				default:
+					System.out.println("No service charge");
+				}
+
+				if ((withdrawalAmount + sr) <= balance) {
+					balance = balance - withdrawalAmount - sr;
+					cardDetails.setBalance(balance);
+				} else {
+					System.out.println("Transaction declined due to insufficient cash");
+				}
+
+				break;
+			}
+		}
+
+		try {
+			writeAtmDataToFile();
+			System.out.println(" \nWithdraw Successful, Updated Account Details is: ");
+			displayAtmDataAfterUpdate(atmNo);
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+
+	}
+
+	public void depositCash(String atmNo) {
+
+		System.out.println("Enter the amount to deposit");
+		Scanner sc = new Scanner(System.in);
+		int depositAmount = sc.nextInt();
+		double balance = 0;
+
+		for (CardDetails cardDetails : cd) {
+
+			if (cardDetails.getCardNumber() == Integer.parseInt(atmNo)) {
+
+				balance = cardDetails.getBalance();
+				balance = balance + depositAmount;
+				cardDetails.setBalance(balance);
+
+				try {
+					writeAtmDataToFile();
+					System.out.println(" \nDeposit Successful, Updated Account Details is: ");
+					displayAtmDataAfterUpdate(atmNo);
+				} catch (IOException e) {
+
+					e.printStackTrace();
+				}
+			}
+		}
+
+	}
+}
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+public interface Bank {
+
+	public void withDrawal(String atmNo) throws IOException;
+	
+	public void balanceEnquiry();
+	
+}
+
+
+-------------------------------------------------------------------------------------------------------
+
+
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
+public class HdfcBank implements Bank {
+	
+	String name;
+	int serviceCharge=10;
+
+	@Override
+	public void withDrawal(String atmNo) throws IOException
+	{
+		
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getServiceCharge() {
+		return serviceCharge;
+	}
+
+	public void setServiceCharge(int serviceCharge) {
+		this.serviceCharge = serviceCharge;
+	}
+
+	@Override
+	public void balanceEnquiry()
+	{
+		
+	}
+}
+
+
+
+--------------------------------------------------------------------------------------------------------
+
+import java.io.IOException;
+
+public class ICICIBank implements Bank {
+	String name;
+	int serviceCharge=5;
+
+	@Override
+	public void withDrawal(String atmNo) throws IOException
+	{
+		
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getServiceCharge() {
+		return serviceCharge;
+	}
+
+	public void setServiceCharge(int serviceCharge) {
+		this.serviceCharge = serviceCharge;
+	}
+
+	@Override
+	public void balanceEnquiry()
+	{
+		
+	}
+}
+
+
+-----------------------------------------------------------------------------------------------------------
+
+
+
+public class CardDetails {
+
+	private int cardNumber;
+	private String name;
+	private String bankName;
+	private double Balance;
+	public int getCardNumber() {
+		return cardNumber;
+	}
+	public void setCardNumber(int cardNumber) {
+		this.cardNumber = cardNumber;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getBankName() {
+		return bankName;
+	}
+	public void setBankName(String bankName) {
+		this.bankName = bankName;
+	}
+	public double getBalance() {
+		return Balance;
+	}
+	public void setBalance(double balance) {
+		Balance = balance;
+	}
+}
